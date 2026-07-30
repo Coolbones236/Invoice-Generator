@@ -64,3 +64,6 @@ ReportLab - PDF Generation
 Pillow (PIL) - Image Processing & Exporting
 
 tkcalendar - Date Picker Widget
+
+📄 License & Terms
+Text To Speech Studio is distributed under custom terms allowing free personal use while restricting modification and redistribution. See the full [LICENSE](LICENSE.md) file for details.
