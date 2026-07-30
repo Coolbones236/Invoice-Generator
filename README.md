@@ -1,2 +1,66 @@
-# Invoice Generator
+# 🧾 Python Invoice Generator
 
+A modern, desktop-based invoice generator built with Python and CustomTkinter. This application allows users to effortlessly create, preview, and export professional invoices. Featuring a live-updating preview pane, automatic calculations, and seamless exporting to PDF and PNG, it is designed for freelancers, students, and small business owners.
+
+---
+
+## ✨ Features
+
+*   **⚡ Live Preview:** The invoice preview updates instantly as you type in the form fields.
+*   **📑 Multiple Export Options:** Export your finished invoices as high-quality PDFs (via ReportLab) or shareable PNG images (via Pillow).
+*   **💾 Draft Management:** Save your work-in-progress as a `.json` draft and load it later to pick up where you left off.
+*   **🎨 Contextual Themes:** Switch between **Work**, **School**, and **Personal** modes to automatically adjust the accent colors and default payment instructions.
+*   **🖼️ Custom Logos:** Easily upload and embed your own business logo into the invoice header.
+*   **🧮 Automatic Calculations:** Automatically computes row amounts, subtotals, custom tax percentages, flat discounts, and the final total due.
+*   **🗑️ Recycle Bin:** Accidentally deleted an item? Retrieve it or permanently delete it using the built-in trash window.
+*   **📅 Interactive Calendars:** Use the pop-up calendar widget to easily select Issue Dates and Due Dates.
+
+---
+
+📥 Download & Installation
+
+*   Go to the [Releases](https://github.com/Coolbones236/Invoice-Generator/releases/tag/v1.0.0) section on the right side of this page.
+*   Download the latest Invoice Generator.exe file.
+*   Double-click Invoice Generator.exe to launch—no installation required!
+
+---
+🖼️ Visual Preview
+
+<img width="2559" height="1439" alt="Screenshot 2026-07-29 230918" src="https://github.com/user-attachments/assets/af9d885d-0e1c-4699-8e46-1511310b7dc2" />
+
+---
+
+## How To Use 
+Navigating the App:
+
+1. Drafting: Use the collapsible panels on the left to enter Sender details, Recipient details, Invoice metadata, and Line Items.
+
+2. Adjusting: Add applicable tax percentages or flat-rate discounts in the "Adjustments & Taxes" panel.
+
+3. Saving: Click Save Draft to store your progress as a .json file in the auto-generated exports/json/ folder.
+
+4. Exporting: Click Export PDF to generate both a .pdf and a .png copy of your invoice, saved securely in your exports/ folder.
+
+5. Settings: Click the ⚙️ Gear icon to change the default currency symbol (e.g., $, €, £).
+
+---
+
+## 📁 Project Structure
+
+<img width="654" height="282" alt="image" src="https://github.com/user-attachments/assets/94990fdd-c9a5-4797-ae0c-43ef1846af5a" />
+
+---
+
+## 💻 Built With
+CustomTkinter - UI Framework
+
+ReportLab - PDF Generation
+
+Pillow (PIL) - Image Processing & Exporting
+
+tkcalendar - Date Picker Widget
+
+---
+
+📄 License & Terms
+Invoice Generator is distributed under custom terms allowing free personal use while restricting modification and redistribution. See the full [LICENSE](LICENSE.md) file for details.
