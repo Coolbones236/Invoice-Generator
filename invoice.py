@@ -73,6 +73,20 @@ class InvoiceBackend:
             json.dump(export_data, f, indent=4)
         return filepath
 
+    def load_draft(self, filepath):
+        """Loads a draft JSON file into backend data."""
+        with open(filepath, 'r') as f:
+            loaded_data = json.load(f)
+        
+        # Clean up metadata fields if stored in JSON
+        if "totals" in loaded_data:
+            del loaded_data["totals"]
+        if "timestamp" in loaded_data:
+            del loaded_data["timestamp"]
+            
+        self.data.update(loaded_data)
+        return self.data
+
     def export_pdf(self, filepath=None):
         if filepath is None:
             filepath = os.path.join(self.pdf_dir, "Invoice_Export.pdf")
@@ -120,11 +134,15 @@ class InvoiceBackend:
         c.setFont("Helvetica-Bold", 10)
         c.drawRightString(width - 50, height - 220, "DETAILS")
         c.setFont("Helvetica", 12)
-        c.drawRightString(width - 150, height - 240, "Date:")
+        
+        c.drawRightString(width - 220, height - 240, "Date:")
         c.drawRightString(width - 50, height - 240, d["inv_date"])
-        c.drawRightString(width - 150, height - 255, "Due Date:")
-        c.drawRightString(width - 50, height - 255, f"{d['inv_due']} ({d['due_message']})")
-        c.drawRightString(width - 150, height - 270, "Project:")
+        
+        formatted_due = f"{d['inv_due']} ({d['due_message']})" if d.get("due_message") else d["inv_due"]
+        c.drawRightString(width - 220, height - 255, "Due Date:")
+        c.drawRightString(width - 50, height - 255, formatted_due)
+        
+        c.drawRightString(width - 220, height - 270, "Project:")
         c.drawRightString(width - 50, height - 270, d["inv_project"])
 
         y_pos = height - 320

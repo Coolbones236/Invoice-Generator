@@ -95,6 +95,34 @@ class InvoiceGeneratorApp(ctk.CTk):
         for v in vars_to_trace:
             v.trace_add("write", self.schedule_refresh)
 
+    def reload_ui_from_backend(self):
+        d = self.backend.data
+        self.var_logo.set(d.get("logo_path", ""))
+        self.var_sender_name.set(d.get("sender_name", ""))
+        self.var_sender_email.set(d.get("sender_email", ""))
+        self.var_sender_addr.set(d.get("sender_address", ""))
+        self.var_recip_name.set(d.get("recipient_name", ""))
+        self.var_recip_addr1.set(d.get("recipient_addr1", ""))
+        self.var_recip_addr2.set(d.get("recipient_addr2", ""))
+        self.var_inv_date.set(d.get("inv_date", ""))
+        self.var_inv_due.set(d.get("inv_due", ""))
+        self.var_due_msg.set(d.get("due_message", ""))
+        self.var_inv_proj.set(d.get("inv_project", ""))
+        self.var_inv_num.set(d.get("inv_number", ""))
+        self.var_tax.set(str(d.get("tax_percent", 0.0)))
+        self.var_discount.set(str(d.get("discount_amount", 0.0)))
+
+        if hasattr(self, 'notes_textbox'):
+            self.notes_textbox.delete("1.0", "end")
+            self.notes_textbox.insert("1.0", d.get("notes", ""))
+
+        for ref in list(self.item_ui_rows):
+            ref["frame"].destroy()
+        self.item_ui_rows.clear()
+
+        for item in d.get("items", []):
+            self.add_item_ui_row(item.get("desc", ""), str(item.get("qty", 1.0)), str(item.get("rate", 0.0)))
+
     def schedule_refresh(self, *args):
         if self._refresh_after_id:
             self.after_cancel(self._refresh_after_id)
@@ -188,10 +216,15 @@ class InvoiceGeneratorApp(ctk.CTk):
                                      fg_color="transparent", hover_color="#F1F5F9", command=self.open_settings_window)
         settings_btn.pack(side="left", padx=5)
 
+        self.import_btn = ctk.CTkButton(right_icons_frame, text="Import", font=("Open Sans", 13, "bold"), height=36,
+                                        fg_color="white", hover_color="#F8FAFC", text_color="#1E293B", border_width=1, border_color="#CBD5E1", width=75,
+                                        command=self.import_draft_action)
+        self.import_btn.pack(side="left", padx=(10, 5))
+
         self.save_btn = ctk.CTkButton(right_icons_frame, text="Save Draft", font=("Open Sans", 13, "bold"), height=36,
                                       fg_color="white", hover_color="#F8FAFC", text_color="#1E293B", border_width=1, border_color="#CBD5E1", width=90,
                                       command=self.save_draft_action)
-        self.save_btn.pack(side="left", padx=(10, 5))
+        self.save_btn.pack(side="left", padx=(5, 5))
 
         self.export_btn = ctk.CTkButton(right_icons_frame, text="Export PDF", font=("Open Sans", 13, "bold"), height=36,
                                         fg_color=self.tones["Work"]["color"], text_color="white", width=110,
@@ -502,7 +535,7 @@ class InvoiceGeneratorApp(ctk.CTk):
         ctk.CTkLabel(parent, text=label, font=("Open Sans", 13), text_color="#475569").grid(row=row, column=0, sticky="w", padx=(0, 30), pady=pady)
         ctk.CTkLabel(parent, text=value, font=("Open Sans", 13), text_color="#1E293B").grid(row=row, column=1, sticky="e", pady=pady)
 
-    # --- Button Action Handlers with Save-As Dialogs ---
+    # --- Button Action Handlers ---
     def save_draft_action(self):
         self.sync_ui_to_backend()
         default_name = f"Draft_{self.backend.data.get('inv_number', '001')}.json"
@@ -520,6 +553,20 @@ class InvoiceGeneratorApp(ctk.CTk):
             self.save_btn.configure(text="Saved!")
             self.after(2000, lambda: self.save_btn.configure(text="Save Draft"))
 
+    def import_draft_action(self):
+        filepath = filedialog.askopenfilename(
+            initialdir=self.backend.json_dir,
+            filetypes=[("JSON Files", "*.json"), ("All Files", "*.*")],
+            title="Import Draft JSON"
+        )
+        
+        if filepath:
+            self.backend.load_draft(filepath)
+            self.reload_ui_from_backend()
+            self.refresh_preview()
+            self.import_btn.configure(text="Loaded!")
+            self.after(2000, lambda: self.import_btn.configure(text="Import"))
+
     def export_pdf_action(self):
         self.sync_ui_to_backend()
         default_name = f"{self.backend.data.get('inv_number', 'Invoice')}.pdf"
@@ -533,8 +580,14 @@ class InvoiceGeneratorApp(ctk.CTk):
         )
         
         if filepath:
+            # 1. Export PDF
             self.backend.export_pdf(filepath)
-            self.export_btn.configure(text="Exported!")
+            
+            # 2. Automatically export an Image version in the same location
+            image_filepath = os.path.splitext(filepath)[0] + ".png"
+            self.backend.export_image(self.paper_frame, image_filepath)
+            
+            self.export_btn.configure(text="Exported Both!")
             self.after(2000, lambda: self.export_btn.configure(text="Export PDF"))
 
     def export_image_action(self):
@@ -554,7 +607,6 @@ class InvoiceGeneratorApp(ctk.CTk):
 
     def print_action(self):
         self.sync_ui_to_backend()
-        # Automatically saves to a temp file in the pdf directory to avoid prompting a save dialog for printing
         default_filepath = os.path.join(self.backend.pdf_dir, "Print_Temp.pdf")
         self.backend.print_invoice(default_filepath)
 
