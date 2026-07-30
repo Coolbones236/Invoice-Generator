@@ -1,4 +1,4 @@
-Text To Speech Studio - License & Terms of Use
+License & Terms of Use
 
 Copyright (c) 2026 David Fernandez - Coolbones236. All rights reserved.
 
