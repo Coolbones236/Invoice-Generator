@@ -31,15 +31,16 @@ Double-click TextToSpeechStudio.exe to launch—no installation required!
 
 ## How To Use 
 Navigating the App:
-Drafting: Use the collapsible panels on the left to enter Sender details, Recipient details, Invoice metadata, and Line Items.
 
-Adjusting: Add applicable tax percentages or flat-rate discounts in the "Adjustments & Taxes" panel.
+1. Drafting: Use the collapsible panels on the left to enter Sender details, Recipient details, Invoice metadata, and Line Items.
 
-Saving: Click Save Draft to store your progress as a .json file in the auto-generated exports/json/ folder.
+2. Adjusting: Add applicable tax percentages or flat-rate discounts in the "Adjustments & Taxes" panel.
 
-Exporting: Click Export PDF to generate both a .pdf and a .png copy of your invoice, saved securely in your exports/ folder.
+3. Saving: Click Save Draft to store your progress as a .json file in the auto-generated exports/json/ folder.
 
-Settings: Click the ⚙️ Gear icon to change the default currency symbol (e.g., $, €, £).
+4. Exporting: Click Export PDF to generate both a .pdf and a .png copy of your invoice, saved securely in your exports/ folder.
+
+5. Settings: Click the ⚙️ Gear icon to change the default currency symbol (e.g., $, €, £).
 
 ---
 
