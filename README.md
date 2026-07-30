@@ -46,19 +46,7 @@ Navigating the App:
 
 ## 📁 Project Structure
 
-Invoice-Generator/
-│
-├── main.py              # The main entry point to launch the application
-├── gui.py               # Handles the CustomTkinter user interface and front-end logic
-├── invoice.py           # Handles data state, math, and the PDF/Image export engine
-├── create_icon.py       # A helper script to generate the app_icon.ico and .png files
-├── app_icon.ico         # Generated Windows application icon
-├── .gitignore           # Git ignore rules (prevents tracking exported files)
-│
-└── exports/             # Auto-generated directory for output files
-    ├── json/            # Saved drafts
-    ├── pdfs/            # Exported PDF invoices
-    └── images/          # Exported PNG invoices
+<img width="654" height="282" alt="image" src="https://github.com/user-attachments/assets/94990fdd-c9a5-4797-ae0c-43ef1846af5a" />
 
 ---
 
