@@ -23,6 +23,11 @@ Download the latest TextToSpeechStudio.exe file.
 Double-click TextToSpeechStudio.exe to launch—no installation required!
 
 ---
+🖼️ Visual Preview
+
+<img width="2559" height="1439" alt="Screenshot 2026-07-29 230918" src="https://github.com/user-attachments/assets/af9d885d-0e1c-4699-8e46-1511310b7dc2" />
+
+---
 
 ## How To Use 
 Navigating the App:
