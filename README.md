@@ -19,9 +19,9 @@ A modern, desktop-based invoice generator built with Python and CustomTkinter. T
 
 📥 Download & Installation
 
-*   ** Go to the [Releases](https://github.com/Coolbones236/Invoice-Generator/releases/tag/v1.0.0) section on the right side of this page.
-*   ** Download the latest Invoice Generator.exe file.
-*   ** Double-click Invoice Generator.exe to launch—no installation required!
+*   **Go to the [Releases](https://github.com/Coolbones236/Invoice-Generator/releases/tag/v1.0.0) section on the right side of this page.
+*   **Download the latest Invoice Generator.exe file.
+*   **Double-click Invoice Generator.exe to launch—no installation required!
 
 ---
 🖼️ Visual Preview
