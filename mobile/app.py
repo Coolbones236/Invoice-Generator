@@ -34,8 +34,13 @@ default_items = pd.DataFrame([
     {"Description": "UI/UX Design", "Qty": 1.0, "Rate": 1200.00},
     {"Description": "Custom Icon Set", "Qty": 1.0, "Rate": 450.00}
 ])
-edited_items = st.data_editor(default_items, num_rows="dynamic", use_container_width=True)
 
+# Fixed: Changed to width="stretch" to clear the warning
+edited_items = st.data_editor(default_items, num_rows="dynamic", width="stretch")
+
+# Fixed: Convert any empty (None) cells in new rows to 0 so the math doesn't crash
+edited_items = edited_items.fillna(0)
+6
 with st.expander("Adjustments & Notes"):
     col3, col4 = st.columns(2)
     tax_percent = col3.number_input("Tax Percentage (%)", value=0.0, step=1.0)
